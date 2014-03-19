@@ -464,7 +464,10 @@ sub analyzePastie {
 					}
 
 					# Wait a random number of seconds to not mess with pastebin.com webmasters
-					sleep(int(rand(5)));
+					#sleep(int(rand(5)));
+					my $RandSleep = int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
+                                        syslogOutput("Sleeping " . $RandSleep . " in analyzePastie subroutine");
+                                        sleep($RandSleep);
 				}
 				else { # MD5 Exists in DB
 					($debug) && print "DEBUG: MD5 $md5 already found in DB!\n";
@@ -492,7 +495,9 @@ sub processUrls {
         	}
 		# Protect us against pastebin.com blacklist?
 		#sleep(int(rand(15)));
-               sleep(int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin);
+               my $RandSleep2 = int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
+                                        syslogOutput("Sleeping " . $RandSleep2 . " in processUrls Sub");
+                                        sleep($RandSleep2);
 	}
 	return 0;
 }
@@ -596,6 +601,8 @@ sub parseXMLConfigFile {
 		$delayPastie	= $node->find('pastie-delay')->string_value;
 		$delayNopaste	= $node->find('nopaste-delay')->string_value;
 		$delayPastesite	= $node->find('pastesite-delay')->string_value;
+		$SleepMinPastebin       = $node->find('pastebin-sleep-min')->string_value;
+                $SleepMaxPastebin       = $node->find('pastebin-sleep-max')->string_value;
 	}
 
 	# Follow URLs
