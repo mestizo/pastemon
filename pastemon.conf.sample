@@ -25,7 +25,7 @@
                 <pastebin>yes</pastebin>
 		<pastebin-delay>10</pastebin-delay>
                 <pastebin-sleep-min>60</pastebin-sleep-min>
-                <pastebin-sleep-max>90<pastebin-sleep-max>
+                <pastebin-sleep-max>90</pastebin-sleep-max>
                 <pastie>yes</pastie>
 		<pastie-delay>120</pastie-delay>
 		<nopaste>yes</nopaste>
