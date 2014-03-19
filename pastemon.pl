@@ -466,7 +466,7 @@ sub analyzePastie {
 					# Wait a random number of seconds to not mess with pastebin.com webmasters
 					#sleep(int(rand(5)));
 					my $RandSleep = int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
-                                        syslogOutput("Sleeping " . $RandSleep . " in analyzePastie subroutine");
+                                        syslogOutput("Sleeping " . $RandSleep . " seconds in analyzePastie subroutine");
                                         sleep($RandSleep);
 				}
 				else { # MD5 Exists in DB
@@ -489,15 +489,16 @@ sub processUrls {
 			my $ua = LWP::UserAgent->new;
 			$ua->agent(getRandomUA());
 			my $r = $ua->head("$url");
+			my $RandSleep2 = int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
+                                        syslogOutput("Sleeping " . $RandSleep2 . " seconds in processUrls Sub");
+                                        sleep($RandSleep2);
 			if ($r->is_success && substr($r->header('Content-Type'), 0, 5) eq "text/") {	# Only process "text"
 				analyzePastie($url);
 			}
         	}
 		# Protect us against pastebin.com blacklist?
 		#sleep(int(rand(15)));
-               my $RandSleep2 = int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
-                                        syslogOutput("Sleeping " . $RandSleep2 . " in processUrls Sub");
-                                        sleep($RandSleep2);
+		#I think this is the wrong place to sleep.  Should be right after the HEAD request, before another request is made in analyzePastie. - mestizo@gmail.com
 	}
 	return 0;
 }
