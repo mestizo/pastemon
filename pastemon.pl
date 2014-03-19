@@ -817,6 +817,7 @@ sub fetchLastPasties {
 			# Append the complete URL
 			foreach my $p (@tempPasties) {
 				$p = 'http://pastebin.com/raw.php?i=' . $p;
+				($debug) && print STDERR "+++ Discovered New Pastie: " . $p . "\n";				
 			}
 			push(@pasties, @tempPasties);
 		}
@@ -909,6 +910,7 @@ sub fetchPastie {
 	}
 	$ua->agent(getRandomUA());
 	my $response = $ua->get("$pastie");
+        ($debug) && print STDERR "+++ Fetching Pastie: " . $pastie . "\n";
 	if ($response->is_success) {
 		# Hack for pastesite.com: Extract data from the <textarea> </textarea>
 		# (To bypass the <continue> button)
