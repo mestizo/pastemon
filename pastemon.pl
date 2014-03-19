@@ -490,6 +490,9 @@ sub processUrls {
         	}
 		# Protect us against pastebin.com blacklist?
 		#sleep(int(rand(15)));
+               $SleepMinPastebin       = $node->find('pastebin-sleep-min')->string_value;
+               $SleepMaxPastebin       = $node->find('pastebin-sleep-max')->string_value;
+               sleep(int(rand($SleepMaxPastebin - $SleepMinPastebin + 1)) + $SleepMinPastebin;
 	}
 	return 0;
 }
