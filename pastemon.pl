@@ -967,7 +967,7 @@ sub loadProxyFromFile {
 		(length > 0) && push(@proxies, 'http://'.$_);
 	}
 	close(PROXY_FD);
-	(@proxies) || die "No proxies read from $file";
+#	(@proxies) || die "No proxies read from $file";
 	syslogOutput("Loaded " . @proxies . " proxies from " . $file);
 	return(1);
 }
